@@ -52,6 +52,20 @@ Order on WhatsApp
     </div>
 
   </section>
+<script>
+function orderRM() {
+  var size = document.getElementById("rm-size").value;
 
+  if (size === "") {
+    alert("Please select a size");
+    return;
+  }
+
+  var message = "I want to order Real Madrid Home Jersey - Size: " + size;
+  var url = "https://wa.me/917006744346?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
+</script>
 </body>
 </html>
