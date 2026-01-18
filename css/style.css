@@ -181,9 +181,10 @@ footer .copy {
   color: #000;
   font-size: 11px;
   font-weight: 700;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 20px;
   letter-spacing: 0.5px;
+  z-index: 10; /* 🔥 IMPORTANT */
 }
 
 /* PRICE STYLE */
