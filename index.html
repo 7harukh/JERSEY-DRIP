@@ -221,6 +221,15 @@ function prevSlide(btn) {
 }
 </script>
 <script>
+function openSizeGuide() {
+  document.getElementById("size-guide").style.display = "flex";
+}
+
+function closeSizeGuide() {
+  document.getElementById("size-guide").style.display = "none";
+}
+</script>
+<script>
 function openFullscreen(img) {
   const fs = document.getElementById("fullscreen");
   const fsImg = document.getElementById("fullscreen-img");
