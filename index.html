@@ -133,6 +133,19 @@ function prevSlide(btn) {
   images[index].classList.add("active");
 }
 </script>
+<script>
+function openFullscreen(img) {
+  const fs = document.getElementById("fullscreen");
+  const fsImg = document.getElementById("fullscreen-img");
+
+  fsImg.src = img.src;
+  fs.style.display = "flex";
+}
+
+function closeFullscreen() {
+  document.getElementById("fullscreen").style.display = "none";
+}
+</script>
 
 </body>
 </html>
