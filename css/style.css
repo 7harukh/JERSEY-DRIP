@@ -90,3 +90,15 @@ select:focus {
   transform: scale(0.97);
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
+/* SLIDER FIX */
+.slider {
+  position: relative;
+}
+
+.slider img {
+  display: none;
+}
+
+.slider img.active {
+  display: block;
+}
