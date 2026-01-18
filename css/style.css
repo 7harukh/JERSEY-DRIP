@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  background: #0b0b0b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  border-bottom: 2px solid gold;
+}
+
+h1 {
+  letter-spacing: 3px;
+}
