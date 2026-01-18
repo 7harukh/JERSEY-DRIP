@@ -23,9 +23,14 @@
     <h2>Available Jerseys</h2>
 
     <!-- REAL MADRID -->
-    <div class="card">
-      <img src="assets/images/real-madrid.jpg" alt="Real Madrid Jersey" class="product-img">
+  <div class="slider">
+  <img src="assets/images/real-madrid-1.jpg" class="product-img active">
+  <img src="assets/images/real-madrid-2.jpg" class="product-img">
+  <img src="assets/images/real-madrid-3.jpg" class="product-img">
 
+  <button class="slide-btn left" onclick="prevSlide(this)">‹</button>
+  <button class="slide-btn right" onclick="nextSlide(this)">›</button>
+</div>
       <h3>Real Madrid Home Jersey</h3>
       <p>Price: ₹339</p>
 
@@ -56,7 +61,7 @@
 
 
   <h3>Barcelona Home Jersey</h3>
-  <p>Price: ₹999</p>
+  <p>Price: ₹399</p>
 
   <label>Select Size:</label>
   <select class="size-select">
