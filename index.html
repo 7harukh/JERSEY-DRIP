@@ -103,5 +103,25 @@
 </footer>
 
 <script src="js/script.js"></script>
+<!-- ORDER SUMMARY / CART -->
+<div id="cartModal" class="cart-modal">
+  <div class="cart-box">
+    <h3>Your Order</h3>
+
+    <div id="cartItems"></div>
+
+    <p class="total">
+      Total: ₹<span id="cartTotal">0</span>
+    </p>
+
+    <button class="wa-btn" onclick="checkoutWhatsApp()">
+      Checkout on WhatsApp
+    </button>
+
+    <button class="close-cart" onclick="closeCart()">
+      Close
+    </button>
+  </div>
+</div>
 </body>
 </html>
