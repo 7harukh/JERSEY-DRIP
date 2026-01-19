@@ -309,7 +309,8 @@ footer .copy {
 
 /* slider should NOT block clicks below */
 .slider {
-  pointer-events: none;
+  position: relative;
+
 }
 
 /* but slider buttons & images should still work */
