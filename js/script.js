@@ -3,32 +3,13 @@ let cart = [];
 /* MENU */
 function toggleMenu() {
   const menu = document.getElementById("sideMenu");
-  menu.style.left = menu.style.left === "0px" ? "-260px" : "0px";
+  menu.style.left = menu.style.left === "0px" ? "-100%" : "0px";
 }
 
 /* SLIDER */
-function nextSlide(btn) {
-  const slider = btn.parentElement;
-  const imgs = slider.querySelectorAll("img");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  imgs[index].classList.remove("active");
-  imgs[(index + 1) % imgs.length].classList.add("active");
-  updateDots(slider);
-}
-
-function prevSlide(btn) {
-  const slider = btn.parentElement;
-  const imgs = slider.querySelectorAll("img");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  imgs[index].classList.remove("active");
-  imgs[(index - 1 + imgs.length) % imgs.length].classList.add("active");
-  updateDots(slider);
-}
-
-/* DOTS */
 document.querySelectorAll(".slider").forEach(slider => {
-  const dotsBox = slider.querySelector(".dots");
   const imgs = slider.querySelectorAll("img");
+  const dotsBox = slider.querySelector(".dots");
 
   imgs.forEach((_, i) => {
     const d = document.createElement("div");
@@ -37,19 +18,33 @@ document.querySelectorAll(".slider").forEach(slider => {
   });
 });
 
-function updateDots(slider) {
+function nextSlide(btn) {
+  slide(btn, 1);
+}
+
+function prevSlide(btn) {
+  slide(btn, -1);
+}
+
+function slide(btn, dir) {
+  const slider = btn.parentElement;
   const imgs = slider.querySelectorAll("img");
   const dots = slider.querySelectorAll(".dot");
   let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  dots.forEach(d => d.classList.remove("active"));
-  if (dots[index]) dots[index].classList.add("active");
+
+  imgs[index].classList.remove("active");
+  dots[index].classList.remove("active");
+
+  index = (index + dir + imgs.length) % imgs.length;
+
+  imgs[index].classList.add("active");
+  dots[index].classList.add("active");
 }
 
 /* CART */
 function addToCart(name, price, btn) {
-  const card = btn.closest(".card");
-  const size = card.querySelector(".size").value;
-  if (!size) return alert("Please select size");
+  const size = btn.parentElement.querySelector(".size").value;
+  if (!size) return alert("Select size");
 
   cart.push({ name, price, size });
   document.getElementById("cartCount").innerText = cart.length;
@@ -58,14 +53,20 @@ function addToCart(name, price, btn) {
 function openCart() {
   const modal = document.getElementById("cartModal");
   const box = document.getElementById("cartItems");
+  box.innerHTML = "";
 
   if (cart.length === 0) {
     box.innerText = "No items yet";
   } else {
-    box.innerHTML = cart.map(
-      i => `${i.name} (${i.size}) - ₹${i.price}`
-    ).join("<br>");
+    let msg = "Order Details:%0A";
+    cart.forEach(i => {
+      box.innerHTML += `<p>${i.name} (${i.size}) - ₹${i.price}</p>`;
+      msg += `${i.name} (${i.size}) - ₹${i.price}%0A`;
+    });
+    document.getElementById("waCheckout").href =
+      "https://wa.me/917006744346?text=" + msg;
   }
+
   modal.style.display = "flex";
 }
 
@@ -73,44 +74,21 @@ function closeCart() {
   document.getElementById("cartModal").style.display = "none";
 }
 
-/* SIZE GUIDE */
-function openSizeGuide() {
-  document.getElementById("sizeGuide").style.display = "flex";
-}
-function closeSizeGuide() {
-  document.getElementById("sizeGuide").style.display = "none";
-}
-
 /* FILTER */
-function filterCategory(cat) {
+function filterCategory(cat, btn) {
   document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
-  event.target.classList.add("active");
+  if (btn) btn.classList.add("active");
 
   document.querySelectorAll(".card").forEach(card => {
-    if (cat === "all" || card.dataset.category.includes(cat)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
+    card.style.display =
+      cat === "all" || card.dataset.category.includes(cat) ? "block" : "none";
   });
 }
 
 /* SEARCH */
 function searchProducts() {
-  const q = document.getElementById("searchInput").value.toLowerCase();
+  const val = document.getElementById("searchInput").value.toLowerCase();
   document.querySelectorAll(".card").forEach(card => {
-    card.style.display = card.dataset.name.includes(q) ? "block" : "none";
+    card.style.display = card.dataset.name.includes(val) ? "block" : "none";
   });
-}
-
-/* WHATSAPP */
-function checkoutWhatsApp() {
-  if (cart.length === 0) return alert("Cart is empty");
-
-  let msg = "Hello Jersey Drip 👋%0A%0AOrder Details:%0A";
-  cart.forEach(i => {
-    msg += `• ${i.name} (${i.size}) - ₹${i.price}%0A`;
-  });
-
-  window.open("https://wa.me/917006744346?text=" + msg, "_blank");
 }
