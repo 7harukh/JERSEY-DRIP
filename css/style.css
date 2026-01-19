@@ -191,28 +191,34 @@ body {
 .cart-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 99999;
+  z-index: 9999;
 }
 
 .cart-box {
   background: #111;
   padding: 20px;
   width: 90%;
+  max-width: 400px;
   border-radius: 12px;
+  position: relative;
+  z-index: 10000;
 }
 
 .wa-btn {
-  display: block;
-  margin-top: 10px;
-  background: #25D366;
-  color: white;
-  padding: 8px;
-  text-align: center;
-  text-decoration: none;
+  width: 100%;
+  background: gold;
+  color: black;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .close-cart {
