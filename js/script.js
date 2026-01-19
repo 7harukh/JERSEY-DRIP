@@ -1,55 +1,70 @@
 let cart = [];
 
-/* MENU */
-function toggleMenu() {
-  const menu = document.getElementById("side-menu");
-  menu.style.left = menu.style.left === "0px" ? "-250px" : "0px";
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-/* SLIDER */
-function nextSlide(btn) {
-  const slider = btn.parentElement;
-  const imgs = slider.querySelectorAll("img");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  imgs[index].classList.remove("active");
-  imgs[(index + 1) % imgs.length].classList.add("active");
-  updateDots(slider);
-}
+  window.toggleMenu = function () {
+    const menu = document.getElementById("sideMenu");
+    menu.style.left = menu.style.left === "0px" ? "-260px" : "0px";
+  };
 
-function prevSlide(btn) {
-  const slider = btn.parentElement;
-  const imgs = slider.querySelectorAll("img");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  imgs[index].classList.remove("active");
-  imgs[(index - 1 + imgs.length) % imgs.length].classList.add("active");
-  updateDots(slider);
-}
+  window.nextSlide = function (btn) {
+    const slider = btn.parentElement;
+    const imgs = slider.querySelectorAll("img");
+    let i = [...imgs].findIndex(img => img.classList.contains("active"));
+    imgs[i].classList.remove("active");
+    imgs[(i + 1) % imgs.length].classList.add("active");
+    updateDots(slider);
+  };
 
-/* DOTS */
-document.querySelectorAll(".slider").forEach(slider => {
-  const dotsBox = slider.querySelector(".dots");
-  const imgs = slider.querySelectorAll("img");
-  imgs.forEach((_, i) => {
-    const d = document.createElement("div");
-    d.className = "dot" + (i === 0 ? " active" : "");
-    dotsBox.appendChild(d);
+  window.prevSlide = function (btn) {
+    const slider = btn.parentElement;
+    const imgs = slider.querySelectorAll("img");
+    let i = [...imgs].findIndex(img => img.classList.contains("active"));
+    imgs[i].classList.remove("active");
+    imgs[(i - 1 + imgs.length) % imgs.length].classList.add("active");
+    updateDots(slider);
+  };
+
+  document.querySelectorAll(".slider").forEach(slider => {
+    const dots = slider.querySelector(".dots");
+    slider.querySelectorAll("img").forEach((_, i) => {
+      const d = document.createElement("div");
+      d.className = "dot" + (i === 0 ? " active" : "");
+      dots.appendChild(d);
+    });
   });
+
+  function updateDots(slider) {
+    const imgs = slider.querySelectorAll("img");
+    const dots = slider.querySelectorAll(".dot");
+    let i = [...imgs].findIndex(img => img.classList.contains("active"));
+    dots.forEach(d => d.classList.remove("active"));
+    dots[i].classList.add("active");
+  }
+
 });
 
-function updateDots(slider) {
-  const imgs = slider.querySelectorAll("img");
-  const dots = slider.querySelectorAll(".dot");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  dots.forEach(d => d.classList.remove("active"));
-  if (dots[index]) dots[index].classList.add("active");
+function addToCart(name, price, btn) {
+  const size = btn.parentElement.querySelector(".size").value;
+  if (!size) return alert("Select size first");
+  cart.push({ name, price, size });
+  document.getElementById("cartCount").innerText = cart.length;
 }
 
-/* CART */
-function addToCart(name, price, btn) {
-  const card = btn.closest(".card");
-  const size = card.querySelector(".size-select").value;
-  if (!size) {
-    alert("Please select size");
-    return;
-  }
-  cart
+function openCart() {
+  document.getElementById("cartModal").style.display = "flex";
+  const items = document.getElementById("cartItems");
+  items.innerHTML = cart.length
+    ? cart.map(i => `${i.name} (${i.size}) - ₹${i.price}`).join("<br>")
+    : "No items yet";
+}
+
+function closeCart() {
+  document.getElementById("cartModal").style.display = "none";
+}
+
+function checkout() {
+  if (!cart.length) return alert("Cart is empty");
+  let msg = cart.map(i => `${i.name} (${i.size}) - ₹${i.price}`).join("%0A");
+  window.open(`https://wa.me/917006744346?text=${msg}`);
+}
