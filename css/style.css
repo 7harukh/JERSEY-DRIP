@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: radial-gradient(circle, #111, #000);
+  border-bottom: 2px solid gold;
+}
+.header h1 { color: gold; margin: 0; }
+.header p { margin: 0; color: #aaa; }
+
+.menu-btn, .cart-btn {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* MENU */
+#side-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  display: none;
+  z-index: 9999;
+}
+.menu-box {
+  background: #111;
+  width: 260px;
+  height: 100%;
+  padding: 20px;
+}
+.menu-box a {
+  display: block;
+  color: white;
+  padding: 12px 0;
+  text-decoration: none;
+}
+.close-btn { float: right; cursor: pointer; }
+
+/* FILTERS */
+.filters {
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+}
+.filters button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid gold;
+  background: transparent;
+  color: gold;
+}
+.filters .active {
+  background: gold;
+  color: black;
+}
+
+/* PRODUCTS */
+.products { padding: 15px; }
+
+.card {
+  background: #111;
+  padding: 15px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* BADGE */
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: gold;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+.badge.yellow { background: orange; }
+
+/* SLIDER */
+.slider { position: relative; }
+.slide { display: none; width: 100%; border-radius: 12px; }
+.slide.active { display: block; }
+
+.slide-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  border-radius: 50%;
+  padding: 6px 10px;
+}
+.left { left: 10px; }
+.right { right: 10px; }
+
+/* PRICE */
+.price { margin: 8px 0; }
+.price .old { text-decoration: line-through; color: gray; }
+.price .new { color: gold; font-weight: bold; }
+
+/* BUTTON */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(180deg,gold,orange);
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* SIZE GUIDE */
+.size-guide {
+  color: gold;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* MODALS */
+#cart-modal, #size-guide {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: rgba(0,0,0,.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.cart-box, .size-box {
+  background: #111;
+  padding: 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 350px;
+}
