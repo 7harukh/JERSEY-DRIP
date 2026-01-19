@@ -242,3 +242,19 @@ footer {
 body {
   pointer-events: auto;
 }
+/* Disable background layers when cart is open */
+.cart-modal {
+  isolation: isolate;
+}
+
+.slider,
+.dots,
+.slide-btn {
+  pointer-events: none;
+}
+
+.cart-box button,
+.cart-box .wa-btn,
+.cart-box .close-btn {
+  pointer-events: auto !important;
+}
