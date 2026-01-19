@@ -233,3 +233,12 @@ footer {
   padding: 20px;
   border-top: 1px solid gold;
 }
+/* FORCE CART INTERACTION FIX */
+.cart-modal,
+.cart-modal * {
+  pointer-events: auto !important;
+}
+
+body {
+  pointer-events: auto;
+}
