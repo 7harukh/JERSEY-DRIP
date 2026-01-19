@@ -245,3 +245,50 @@ footer p {
   color: #aaa;
   margin-top: 6px;
 }
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #111;
+  padding: 20px;
+  transition: 0.3s;
+  z-index: 1001;
+}
+
+.side-menu.active {
+  left: 0;
+}
+
+.side-menu a {
+  display: block;
+  color: white;
+  padding: 14px 0;
+  text-decoration: none;
+}
+
+.side-menu a:hover {
+  color: gold;
+}
+
+.close-btn {
+  font-size: 22px;
+  color: gold;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* OVERLAY */
+#menuOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  z-index: 1000;
+}
+
+#menuOverlay.active {
+  display: block;
+}
