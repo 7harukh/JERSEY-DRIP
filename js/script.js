@@ -1,104 +1,116 @@
 let cart = [];
 
-document.addEventListener("DOMContentLoaded", () => {
+/* MENU */
+function toggleMenu() {
+  const menu = document.getElementById("sideMenu");
+  menu.style.left = menu.style.left === "0px" ? "-260px" : "0px";
+}
 
-  window.toggleMenu = function () {
-    const menu = document.getElementById("sideMenu");
-    menu.style.left = menu.style.left === "0px" ? "-260px" : "0px";
-  };
+/* SLIDER */
+function nextSlide(btn) {
+  const slider = btn.parentElement;
+  const imgs = slider.querySelectorAll("img");
+  let index = [...imgs].findIndex(img => img.classList.contains("active"));
+  imgs[index].classList.remove("active");
+  imgs[(index + 1) % imgs.length].classList.add("active");
+  updateDots(slider);
+}
 
-  window.nextSlide = function (btn) {
-    const slider = btn.parentElement;
-    const imgs = slider.querySelectorAll("img");
-    let i = [...imgs].findIndex(img => img.classList.contains("active"));
-    imgs[i].classList.remove("active");
-    imgs[(i + 1) % imgs.length].classList.add("active");
-    updateDots(slider);
-  };
+function prevSlide(btn) {
+  const slider = btn.parentElement;
+  const imgs = slider.querySelectorAll("img");
+  let index = [...imgs].findIndex(img => img.classList.contains("active"));
+  imgs[index].classList.remove("active");
+  imgs[(index - 1 + imgs.length) % imgs.length].classList.add("active");
+  updateDots(slider);
+}
 
-  window.prevSlide = function (btn) {
-    const slider = btn.parentElement;
-    const imgs = slider.querySelectorAll("img");
-    let i = [...imgs].findIndex(img => img.classList.contains("active"));
-    imgs[i].classList.remove("active");
-    imgs[(i - 1 + imgs.length) % imgs.length].classList.add("active");
-    updateDots(slider);
-  };
+/* DOTS */
+document.querySelectorAll(".slider").forEach(slider => {
+  const dotsBox = slider.querySelector(".dots");
+  const imgs = slider.querySelectorAll("img");
 
-  document.querySelectorAll(".slider").forEach(slider => {
-    const dots = slider.querySelector(".dots");
-    slider.querySelectorAll("img").forEach((_, i) => {
-      const d = document.createElement("div");
-      d.className = "dot" + (i === 0 ? " active" : "");
-      dots.appendChild(d);
-    });
+  imgs.forEach((_, i) => {
+    const d = document.createElement("div");
+    d.className = "dot" + (i === 0 ? " active" : "");
+    dotsBox.appendChild(d);
   });
-
-  function updateDots(slider) {
-    const imgs = slider.querySelectorAll("img");
-    const dots = slider.querySelectorAll(".dot");
-    let i = [...imgs].findIndex(img => img.classList.contains("active"));
-    dots.forEach(d => d.classList.remove("active"));
-    dots[i].classList.add("active");
-  }
-
 });
 
+function updateDots(slider) {
+  const imgs = slider.querySelectorAll("img");
+  const dots = slider.querySelectorAll(".dot");
+  let index = [...imgs].findIndex(img => img.classList.contains("active"));
+  dots.forEach(d => d.classList.remove("active"));
+  if (dots[index]) dots[index].classList.add("active");
+}
+
+/* CART */
 function addToCart(name, price, btn) {
-  const size = btn.parentElement.querySelector(".size").value;
-  if (!size) return alert("Select size first");
+  const card = btn.closest(".card");
+  const size = card.querySelector(".size").value;
+  if (!size) return alert("Please select size");
+
   cart.push({ name, price, size });
   document.getElementById("cartCount").innerText = cart.length;
 }
 
 function openCart() {
-  document.getElementById("cartModal").style.display = "flex";
-  const items = document.getElementById("cartItems");
-  items.innerHTML = cart.length
-    ? cart.map(i => `${i.name} (${i.size}) - ₹${i.price}`).join("<br>")
-    : "No items yet";
+  const modal = document.getElementById("cartModal");
+  const box = document.getElementById("cartItems");
+
+  if (cart.length === 0) {
+    box.innerText = "No items yet";
+  } else {
+    box.innerHTML = cart.map(
+      i => `${i.name} (${i.size}) - ₹${i.price}`
+    ).join("<br>");
+  }
+  modal.style.display = "flex";
 }
 
 function closeCart() {
   document.getElementById("cartModal").style.display = "none";
 }
 
-function checkout() {
-  if (!cart.length) return alert("Cart is empty");
-  let msg = cart.map(i => `${i.name} (${i.size}) - ₹${i.price}`).join("%0A");
-  window.open(`https://wa.me/917006744346?text=${msg}`);
+/* SIZE GUIDE */
+function openSizeGuide() {
+  document.getElementById("sizeGuide").style.display = "flex";
 }
-// SEARCH FUNCTION
-function searchProducts() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  const cards = document.querySelectorAll(".card");
+function closeSizeGuide() {
+  document.getElementById("sizeGuide").style.display = "none";
+}
 
-  cards.forEach(card => {
-    const name = card.getAttribute("data-name");
-    if (!name) return;
+/* FILTER */
+function filterCategory(cat) {
+  document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
 
-    if (name.includes(input)) {
+  document.querySelectorAll(".card").forEach(card => {
+    if (cat === "all" || card.dataset.category.includes(cat)) {
       card.style.display = "block";
     } else {
       card.style.display = "none";
     }
   });
 }
-function openMenu() {
-  document.getElementById("sideMenu").classList.add("active");
-  document.getElementById("menuOverlay").classList.add("active");
+
+/* SEARCH */
+function searchProducts() {
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.display = card.dataset.name.includes(q) ? "block" : "none";
+  });
 }
 
-function closeMenu() {
-  document.getElementById("sideMenu").classList.remove("active");
-  document.getElementById("menuOverlay").classList.remove("active");
-}
+/* WHATSAPP */
+function checkoutWhatsApp() {
+  if (cart.length === 0) return alert("Cart is empty");
 
-function toggleMenu() {
-  const menu = document.getElementById("sideMenu");
-  if (menu.classList.contains("active")) {
-    closeMenu();
-  } else {
-    openMenu();
-  }
+  let msg = "Hello Jersey Drip 👋%0A%0AOrder Details:%0A";
+  cart.forEach(i => {
+    msg += `• ${i.name} (${i.size}) - ₹${i.price}%0A`;
+  });
+
+  window.open("https://wa.me/917006744346?text=" + msg, "_blank");
 }
