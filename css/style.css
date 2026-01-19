@@ -361,3 +361,42 @@ footer .copy {
   border: none;
   font-size: 14px;
 }
+#cart-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-box {
+  background: #111;
+  width: 90%;
+  max-width: 380px;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+}
+
+.cart-box h3 {
+  color: gold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#cart-items {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.close-cart {
+  background: transparent;
+  color: #aaa;
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+}
