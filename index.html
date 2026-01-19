@@ -264,6 +264,31 @@ document.querySelectorAll(".slider").forEach(slider => {
   });
 });
 </script>
+<script>
+document.querySelectorAll(".slider").forEach(slider => {
+  const images = slider.querySelectorAll("img");
+  const dotsContainer = slider.querySelector(".dots");
 
+  // create dots
+  images.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.classList.add("dot");
+    if (i === 0) dot.classList.add("active");
+    dotsContainer.appendChild(dot);
+  });
+});
+
+function updateDots(slider) {
+  const images = slider.querySelectorAll("img");
+  const dots = slider.querySelectorAll(".dot");
+
+  let index = [...images].findIndex(img =>
+    img.classList.contains("active")
+  );
+
+  dots.forEach(dot => dot.classList.remove("active"));
+  if (dots[index]) dots[index].classList.add("active");
+}
+</script>
 </body>
 </html>
