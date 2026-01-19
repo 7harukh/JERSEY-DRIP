@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jersey Drip</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -13,19 +13,31 @@
 <header>
   <h1>JERSEY DRIP</h1>
   <p>Premium Football Jerseys</p>
+
+  <!-- CART ICON -->
+  <div class="cart-icon" onclick="openCart()">
+    🛒 <span id="cart-count">0</span>
+  </div>
 </header>
 
 <!-- PRODUCTS -->
 <section>
   <h2>Available Jerseys</h2>
 
-  <!-- REAL MADRID -->
-  <div class="card">
+  <!-- CATEGORIES -->
+  <div class="categories">
+    <button class="cat-btn active" onclick="filterCategory('all', this)">All</button>
+    <button class="cat-btn" onclick="filterCategory('embroidered', this)">Embroidered Logo</button>
+    <button class="cat-btn" onclick="filterCategory('printed', this)">Printed Logo</button>
+  </div>
+
+  <!-- SAMPLE PRODUCT (REAL MADRID – PRINTED LOGO) -->
+  <div class="card" data-category="embroidered">
 
     <span class="badge">BEST SELLER</span>
 
     <div class="slider">
-      <img src="assets/images/real-madrid-1.jpg" class="product-img active">
+      <img src="assets/images/real-madrid-1.jpg" class="active product-img">
       <img src="assets/images/real-madrid-2.jpg" class="product-img">
       <img src="assets/images/real-madrid-3.jpg" class="product-img">
 
@@ -60,18 +72,6 @@
 
 </section>
 
-<!-- TRUST -->
-<section>
-  <div class="card">
-    <h3>Why Choose Jersey Drip?</h3>
-    <p>🚚 Delivery available across India</p>
-    <p>👕 Premium quality fabric</p>
-    <p>📏 Accurate sizing (S–XXL)</p>
-    <p>🔁 Replacement if damaged</p>
-    <p>📱 Order directly on WhatsApp</p>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <h3>JERSEY DRIP</h3>
@@ -91,7 +91,7 @@
   </div>
 </div>
 
-<!-- SIZE GUIDE -->
+<!-- SIZE GUIDE MODAL -->
 <div id="size-guide">
   <div class="size-guide-box">
     <span class="close-btn" onclick="closeSizeGuide()">×</span>
@@ -105,26 +105,26 @@
 
 <!-- SCRIPT -->
 <script>
-/* ---------- SLIDER ---------- */
+/* SLIDER */
 function nextSlide(btn) {
   const slider = btn.closest(".slider");
   const imgs = slider.querySelectorAll("img");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  imgs[index].classList.remove("active");
-  imgs[(index + 1) % imgs.length].classList.add("active");
+  let i = [...imgs].findIndex(img => img.classList.contains("active"));
+  imgs[i].classList.remove("active");
+  imgs[(i + 1) % imgs.length].classList.add("active");
   updateDots(slider);
 }
 
 function prevSlide(btn) {
   const slider = btn.closest(".slider");
   const imgs = slider.querySelectorAll("img");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
-  imgs[index].classList.remove("active");
-  imgs[(index - 1 + imgs.length) % imgs.length].classList.add("active");
+  let i = [...imgs].findIndex(img => img.classList.contains("active"));
+  imgs[i].classList.remove("active");
+  imgs[(i - 1 + imgs.length) % imgs.length].classList.add("active");
   updateDots(slider);
 }
 
-/* ---------- DOTS ---------- */
+/* DOTS */
 document.querySelectorAll(".slider").forEach(slider => {
   const dotsBox = slider.parentElement.querySelector(".dots");
   const imgs = slider.querySelectorAll("img");
@@ -139,12 +139,12 @@ document.querySelectorAll(".slider").forEach(slider => {
 function updateDots(slider) {
   const imgs = slider.querySelectorAll("img");
   const dots = slider.parentElement.querySelectorAll(".dot");
-  let index = [...imgs].findIndex(img => img.classList.contains("active"));
+  let i = [...imgs].findIndex(img => img.classList.contains("active"));
   dots.forEach(d => d.classList.remove("active"));
-  if (dots[index]) dots[index].classList.add("active");
+  if (dots[i]) dots[i].classList.add("active");
 }
 
-/* ---------- CART ---------- */
+/* CART */
 let cart = [];
 
 function addToCart(btn) {
@@ -153,11 +153,12 @@ function addToCart(btn) {
   const size = card.querySelector(".size-select").value;
 
   if (!size) {
-    alert("Please select a size");
+    alert("Please select size");
     return;
   }
 
   cart.push({ name, size });
+  document.getElementById("cart-count").innerText = cart.length;
   renderCart();
   openCart();
 }
@@ -165,8 +166,8 @@ function addToCart(btn) {
 function renderCart() {
   const box = document.getElementById("cart-items");
   box.innerHTML = "";
-  cart.forEach(item => {
-    box.innerHTML += `<p>${item.name} - Size ${item.size}</p>`;
+  cart.forEach(i => {
+    box.innerHTML += `<p>${i.name} — Size ${i.size}</p>`;
   });
 }
 
@@ -186,13 +187,24 @@ function checkout() {
   window.location.href = "https://wa.me/917006744346?text=" + msg;
 }
 
-/* ---------- SIZE GUIDE ---------- */
+/* SIZE GUIDE */
 function openSizeGuide() {
   document.getElementById("size-guide").style.display = "flex";
 }
 
 function closeSizeGuide() {
   document.getElementById("size-guide").style.display = "none";
+}
+
+/* CATEGORY FILTER */
+function filterCategory(cat, btn) {
+  document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.display =
+      cat === "all" || card.dataset.category === cat ? "block" : "none";
+  });
 }
 </script>
 
