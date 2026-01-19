@@ -49,26 +49,34 @@ function addToCart(name, price, btn) {
   cart.push({ name, price, size });
   document.getElementById("cartCount").innerText = cart.length;
 }
-
 function openCart() {
   const modal = document.getElementById("cartModal");
-  const box = document.getElementById("cartItems");
-  box.innerHTML = "";
+  const itemsBox = document.getElementById("cartItems");
+  const totalBox = document.getElementById("cartTotal");
+
+  itemsBox.innerHTML = "";
+  let total = 0;
 
   if (cart.length === 0) {
-    box.innerText = "No items yet";
+    itemsBox.innerHTML = "<p>No items in cart</p>";
+    totalBox.innerText = "0";
   } else {
-    let msg = "Order Details:%0A";
-    cart.forEach(i => {
-      box.innerHTML += `<p>${i.name} (${i.size}) - ₹${i.price}</p>`;
-      msg += `${i.name} (${i.size}) - ₹${i.price}%0A`;
+    cart.forEach(item => {
+      itemsBox.innerHTML += `
+        <p>
+          <strong>${item.name}</strong><br>
+          Size: ${item.size} – ₹${item.price}
+        </p>
+      `;
+      total += item.price;
     });
-    document.getElementById("waCheckout").href =
-      "https://wa.me/917006744346?text=" + msg;
+
+    totalBox.innerText = total;
   }
 
   modal.style.display = "flex";
 }
+
 
 function closeCart() {
   document.getElementById("cartModal").style.display = "none";
