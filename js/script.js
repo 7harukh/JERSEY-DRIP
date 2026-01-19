@@ -68,3 +68,19 @@ function checkout() {
   let msg = cart.map(i => `${i.name} (${i.size}) - ₹${i.price}`).join("%0A");
   window.open(`https://wa.me/917006744346?text=${msg}`);
 }
+// SEARCH FUNCTION
+function searchProducts() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const name = card.getAttribute("data-name");
+    if (!name) return;
+
+    if (name.includes(input)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
