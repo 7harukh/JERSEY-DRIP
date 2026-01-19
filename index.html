@@ -37,9 +37,11 @@
 
 <!-- CATEGORY FILTER -->
 <section class="categories" id="shop">
-  <button class="active">All</button>
-  <button>Embroidered Logo</button>
-  <button>Printed Logo</button>
+  <button class="cat-btn active" onclick="filterCategory('all', this)">All</button>
+  <button class="cat-btn" onclick="filterCategory('embroidery', this)">Embroidery</button>
+  <button class="cat-btn" onclick="filterCategory('printed', this)">Printed</button>
+  <button class="cat-btn" onclick="filterCategory('player', this)">Player Version</button>
+  <button class="cat-btn" onclick="filterCategory('fan', this)">Fan Version</button>
 </section>
 
 <!-- PRODUCT CARD -->
