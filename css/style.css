@@ -295,3 +295,27 @@ footer .copy {
   font-size: 14px;
   letter-spacing: 0.4px;
 }
+/* FIX CLICK ISSUE FOR BUTTONS */
+.card {
+  position: relative;
+}
+
+.card button,
+.card .btn {
+  position: relative;
+  z-index: 50;
+  pointer-events: auto;
+}
+
+/* slider should NOT block clicks below */
+.slider {
+  pointer-events: none;
+}
+
+/* but slider buttons & images should still work */
+.slide-btn,
+.product-img,
+.dots,
+.dot {
+  pointer-events: auto;
+}
