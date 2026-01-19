@@ -329,6 +329,52 @@ function updateDots(slider) {
     <button class="close-cart" onclick="closeCart()">Close</button>
   </div>
 </div>
+<script>
+let cart = [];
+
+function addToCart(btn) {
+  const card = btn.closest(".card");
+  const name = card.querySelector("h3").innerText;
+  const size = card.querySelector(".size-select").value;
+
+  if (!size) {
+    alert("Please select size");
+    return;
+  }
+
+  cart.push({ name, size });
+  openCart();
+}
+
+function openCart() {
+  document.getElementById("cart-modal").style.display = "flex";
+  renderCart();
+}
+
+function closeCart() {
+  document.getElementById("cart-modal").style.display = "none";
+}
+
+function renderCart() {
+  const box = document.getElementById("cart-items");
+  box.innerHTML = "";
+
+  cart.forEach(item => {
+    box.innerHTML += `<p>• ${item.name} — Size ${item.size}</p>`;
+  });
+}
+
+function checkoutWhatsApp() {
+  let msg = "Order Details:%0A";
+
+  cart.forEach(i => {
+    msg += `${i.name} (Size ${i.size})%0A`;
+  });
+
+  window.location.href =
+    "https://wa.me/917006744346?text=" + msg;
+}
+</script>
 </body>
 <!-- CART MODAL -->
 <div id="cart-modal">
