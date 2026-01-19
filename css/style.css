@@ -210,3 +210,18 @@ footer {
   padding: 20px;
   color: #aaa;
 }
+/* SEARCH BAR */
+#searchInput {
+  background: #111;
+  border: 1px solid gold;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 20px;
+  outline: none;
+  width: 160px;
+  font-size: 13px;
+}
+
+#searchInput::placeholder {
+  color: #aaa;
+}
