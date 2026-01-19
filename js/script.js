@@ -100,3 +100,26 @@ function searchProducts() {
     card.style.display = card.dataset.name.includes(val) ? "block" : "none";
   });
 }
+function checkoutWhatsApp() {
+  if (cart.length === 0) {
+    alert("Cart is empty");
+    return;
+  }
+
+  let message = "🛒 *Jersey Drip Order*%0A%0A";
+  let total = 0;
+
+  cart.forEach(item => {
+    message += `• ${item.name}%0A`;
+    message += `  Size: ${item.size} – ₹${item.price}%0A%0A`;
+    total += item.price;
+  });
+
+  message += `*Total: ₹${total}*%0A%0A`;
+  message += "Name:%0AAddress:%0APincode:";
+
+  window.open(
+    "https://wa.me/917006744346?text=" + message,
+    "_blank"
+  );
+}
