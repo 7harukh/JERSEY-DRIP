@@ -23,17 +23,20 @@
 />
   <div class="cart-icon" onclick="openCart()">🛒 <span id="cartCount">0</span></div>
  
-</header>
-
 <!-- SIDE MENU -->
 <div id="sideMenu" class="side-menu">
-  <a href="#">Home</a>
-  <a href="#shop">Shop</a>
-  <a href="#">Embroidered Logo</a>
-  <a href="#">Printed Logo</a>
+  <span class="close-btn" onclick="closeMenu()">✕</span>
+
+  <a href="#" onclick="closeMenu()">Home</a>
+  <a href="#shop" onclick="closeMenu()">Shop</a>
+  <a href="#" onclick="filterCategory('embroidered'); closeMenu()">Embroidered Logo</a>
+  <a href="#" onclick="filterCategory('printed'); closeMenu()">Printed Logo</a>
   <a href="https://wa.me/917006744346">Contact on WhatsApp</a>
-  <a href="#">About Us</a>
+  <a href="#" onclick="closeMenu()">About Us</a>
 </div>
+
+<!-- OVERLAY -->
+<div id="menuOverlay" onclick="closeMenu()"></div>
 
 <!-- CATEGORY FILTER -->
 <section class="categories" id="shop">
