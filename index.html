@@ -8,7 +8,18 @@
 
 
 </head>
+<div id="cart-modal">
+  <div class="cart-box">
+    <h3>Your Cart</h3>
+    <div id="cart-items"></div>
 
+    <button class="btn" onclick="checkoutCart()">
+      Checkout on WhatsApp
+    </button>
+
+    <button class="close-cart" onclick="closeCart()">Close</button>
+  </div>
+</div>
 <body>
 
   <!-- HEADER -->
@@ -18,6 +29,9 @@
 </div>
     <h1>JERSEY DRIP</h1>
     <p>Premium Football Jerseys</p>
+    <div class="cart-icon" onclick="openCart()">
+  🛒 <span id="cart-count">0</span>
+</div>
   </header>
 
   <!-- PRODUCTS -->
