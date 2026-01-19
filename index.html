@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jersey Drip</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jersey Drip</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <span class="menu-btn" onclick="openMenu()">☰</span>
-
   <div>
     <h1>JERSEY DRIP</h1>
     <p>Premium Football Jerseys</p>
   </div>
-
   <span class="cart-btn" onclick="openCart()">🛒 <span id="cart-count">0</span></span>
 </header>
 
-<!-- SIDE MENU -->
 <div id="side-menu" onclick="closeMenu()">
   <div class="menu-box" onclick="event.stopPropagation()">
     <span class="close-btn" onclick="closeMenu()">✕</span>
@@ -29,160 +25,43 @@
     <a href="#">Shop</a>
     <a href="#">Embroidered Logo</a>
     <a href="#">Printed Logo</a>
-    <a href="#">Contact on WhatsApp</a>
-    <a href="#">About Us</a>
+    <a href="https://wa.me/917006744346">Contact WhatsApp</a>
   </div>
 </div>
 
-<!-- CATEGORY FILTER -->
 <section class="filters">
-  <button class="active" onclick="filterItems('all',this)">All</button>
-  <button onclick="filterItems('embroidered',this)">Embroidered Logo</button>
-  <button onclick="filterItems('printed',this)">Printed Logo</button>
+  <button class="active">All</button>
+  <button>Embroidered</button>
+  <button>Printed</button>
 </section>
 
-<!-- PRODUCTS -->
 <section class="products">
+  <div class="card">
+    <h3>Sample Jersey</h3>
+    <p class="price">₹999</p>
 
-<!-- REAL MADRID -->
-<div class="card embroidered">
-  <span class="badge">BEST SELLER</span>
+    <select class="size-select">
+      <option value="">Choose size</option>
+      <option>S</option><option>M</option><option>L</option><option>XL</option>
+    </select>
 
-  <div class="slider">
-    <img src="assets/images/real-madrid-1.jpg" class="slide active">
-    <img src="assets/images/real-madrid-2.jpg" class="slide">
-    <img src="assets/images/real-madrid-3.jpg" class="slide">
-
-    <button class="slide-btn left" onclick="prevSlide(this)">‹</button>
-    <button class="slide-btn right" onclick="nextSlide(this)">›</button>
-
-    <div class="dots"></div>
+    <button class="btn">Add to Cart</button>
   </div>
-
-  <h3>Real Madrid Home Jersey</h3>
-
-  <p class="price">
-    <span class="old">₹499</span>
-    <span class="new">₹339</span>
-  </p>
-
-  <label>
-    Select Size:
-    <span class="size-guide" onclick="openSizeGuide()">Size Guide</span>
-  </label>
-
-  <select class="size-select">
-    <option value="">Choose size</option>
-    <option>S</option>
-    <option>M</option>
-    <option>L</option>
-    <option>XL</option>
-  </select>
-
-  <button class="btn" onclick="addToCart(this,'Real Madrid Home Jersey',339)">
-    Add to Cart
-  </button>
-</div>
-
-<!-- BARCELONA -->
-<div class="card printed">
-  <span class="badge yellow">LIMITED OFFER</span>
-
-  <div class="slider">
-    <img src="assets/images/barcelona-1.jpg" class="slide active">
-    <button class="slide-btn left" onclick="prevSlide(this)">‹</button>
-    <button class="slide-btn right" onclick="nextSlide(this)">›</button>
-    <div class="dots"></div>
-  </div>
-
-  <h3>Barcelona Home Jersey</h3>
-  <p class="price">₹399</p>
-
-  <label>Select Size:</label>
-  <select class="size-select">
-    <option value="">Choose size</option>
-    <option>S</option>
-    <option>M</option>
-    <option>L</option>
-    <option>XL</option>
-  </select>
-
-  <button class="btn" onclick="addToCart(this,'Barcelona Home Jersey',399)">
-    Add to Cart
-  </button>
-</div>
-
 </section>
 
-<!-- SIZE GUIDE -->
-<div id="size-guide" onclick="closeSizeGuide()">
-  <div class="size-box" onclick="event.stopPropagation()">
-    <h3>Size Guide</h3>
-    <table>
-      <tr><th>Size</th><th>Chest</th></tr>
-      <tr><td>S</td><td>36–38</td></tr>
-      <tr><td>M</td><td>38–40</td></tr>
-      <tr><td>L</td><td>40–42</td></tr>
-      <tr><td>XL</td><td>42–44</td></tr>
-    </table>
-    <button onclick="closeSizeGuide()">Close</button>
-  </div>
-</div>
-
-<!-- CART -->
 <div id="cart-modal" onclick="closeCart()">
   <div class="cart-box" onclick="event.stopPropagation()">
     <h3>Your Cart</h3>
-    <div id="cart-items"></div>
-    <button class="btn" onclick="checkout()">Checkout on WhatsApp</button>
-    <button class="close-cart" onclick="closeCart()">Close</button>
+    <p>No items yet</p>
+    <button class="btn" onclick="closeCart()">Close</button>
   </div>
 </div>
 
-<!-- SCRIPT -->
 <script>
-let cart = [];
-
-function openMenu(){ document.getElementById('side-menu').style.display='block'; }
-function closeMenu(){ document.getElementById('side-menu').style.display='none'; }
-
-function openCart(){ document.getElementById('cart-modal').style.display='flex'; }
-function closeCart(){ document.getElementById('cart-modal').style.display='none'; }
-
-function openSizeGuide(){ document.getElementById('size-guide').style.display='flex'; }
-function closeSizeGuide(){ document.getElementById('size-guide').style.display='none'; }
-
-function addToCart(btn,name,price){
-  const size = btn.previousElementSibling.value;
-  if(!size){ alert("Please select a size"); return; }
-  cart.push(`${name} (${size}) - ₹${price}`);
-  document.getElementById('cart-count').innerText = cart.length;
-}
-
-function checkout(){
-  let msg = "I want to order:%0A" + cart.join("%0A");
-  window.location.href = "https://wa.me/917006744346?text=" + msg;
-}
-
-function filterItems(type,btn){
-  document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.card').forEach(card=>{
-    card.style.display = (type==='all'||card.classList.contains(type))?'block':'none';
-  });
-}
-
-function prevSlide(btn){ slide(btn,-1); }
-function nextSlide(btn){ slide(btn,1); }
-
-function slide(btn,dir){
-  const slider = btn.parentElement;
-  const slides = slider.querySelectorAll('.slide');
-  let index = [...slides].findIndex(s=>s.classList.contains('active'));
-  slides[index].classList.remove('active');
-  index = (index + dir + slides.length) % slides.length;
-  slides[index].classList.add('active');
-}
+function openMenu(){document.getElementById("side-menu").style.display="block";}
+function closeMenu(){document.getElementById("side-menu").style.display="none";}
+function openCart(){document.getElementById("cart-modal").style.display="flex";}
+function closeCart(){document.getElementById("cart-modal").style.display="none";}
 </script>
 
 </body>
