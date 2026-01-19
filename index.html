@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jersey Drip</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <!-- HEADER -->
@@ -18,12 +17,7 @@
     <p>Premium Football Jerseys</p>
   </div>
 
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Search jerseys..."
-    onkeyup="searchProducts()"
-  />
+  <input type="text" id="searchInput" placeholder="Search jerseys..." onkeyup="searchProducts()">
 
   <div class="cart-icon" onclick="openCart()">
     🛒 <span id="cartCount">0</span>
@@ -32,101 +26,77 @@
 
 <!-- SIDE MENU -->
 <div id="sideMenu" class="side-menu">
-  <span class="close-menu" onclick="toggleMenu()">✕</span>
+  <span class="close-btn" onclick="toggleMenu()">✕</span>
   <a href="#">Home</a>
   <a href="#shop">Shop</a>
   <a href="#" onclick="filterCategory('embroidered')">Embroidered Logo</a>
   <a href="#" onclick="filterCategory('printed')">Printed Logo</a>
   <a href="#" onclick="filterCategory('player')">Player Version</a>
   <a href="#" onclick="filterCategory('fan')">Fan Version</a>
-  <a href="https://wa.me/917006744346">Contact on WhatsApp</a>
+  <a href="https://wa.me/917006744346" target="_blank">Contact on WhatsApp</a>
   <a href="#">About Us</a>
 </div>
 
 <!-- CATEGORY FILTER -->
 <section class="categories" id="shop">
-  <button class="cat-btn active" onclick="filterCategory('all')">All</button>
-  <button class="cat-btn" onclick="filterCategory('embroidered')">Embroidered</button>
-  <button class="cat-btn" onclick="filterCategory('printed')">Printed</button>
-  <button class="cat-btn" onclick="filterCategory('player')">Player Version</button>
-  <button class="cat-btn" onclick="filterCategory('fan')">Fan Version</button>
+  <button class="cat-btn active" onclick="filterCategory('all', this)">All</button>
+  <button class="cat-btn" onclick="filterCategory('embroidered', this)">Embroidered</button>
+  <button class="cat-btn" onclick="filterCategory('printed', this)">Printed</button>
+  <button class="cat-btn" onclick="filterCategory('player', this)">Player</button>
+  <button class="cat-btn" onclick="filterCategory('fan', this)">Fan</button>
 </section>
 
-<!-- PRODUCT -->
-<div class="card" data-name="real madrid home jersey" data-category="embroidered fan">
-  <span class="badge">BEST SELLER</span>
+<!-- PRODUCTS -->
+<section class="products">
 
-  <div class="slider">
-    <img src="assets/images/real-1.jpg" class="active" />
-    <img src="assets/images/real-2.jpg" />
-    <img src="assets/images/real-3.jpg" />
+  <div class="card" data-name="real madrid home jersey" data-category="embroidered fan">
+    <span class="badge">BEST SELLER</span>
 
-    <button class="slide-btn left" onclick="prevSlide(this)">‹</button>
-    <button class="slide-btn right" onclick="nextSlide(this)">›</button>
+    <div class="slider">
+      <img src="assets/images/sample1.jpg" class="active">
+      <img src="assets/images/sample2.jpg">
+      <img src="assets/images/sample3.jpg">
 
-    <div class="dots"></div>
-  </div>
+      <button class="slide-btn left" onclick="prevSlide(this)">‹</button>
+      <button class="slide-btn right" onclick="nextSlide(this)">›</button>
+      <div class="dots"></div>
+    </div>
 
-  <h3>Real Madrid Home Jersey</h3>
+    <h3>Real Madrid Home Jersey</h3>
 
-  <p class="price">
-    <span class="old">₹499</span>
-    <span class="new">₹339</span>
-  </p>
+    <p class="price">
+      <span class="old">₹499</span>
+      <span class="new">₹339</span>
+    </p>
 
-  <label>
-    Select Size:
-    <span class="size-guide" onclick="openSizeGuide()">Size Guide</span>
-  </label>
+    <select class="size">
+      <option value="">Choose size</option>
+      <option>S</option>
+      <option>M</option>
+      <option>L</option>
+      <option>XL</option>
+    </select>
 
-  <select class="size">
-    <option value="">Choose size</option>
-    <option>S</option>
-    <option>M</option>
-    <option>L</option>
-    <option>XL</option>
-    <option>XXL</option>
-  </select>
-
-  <button class="btn" onclick="addToCart('Real Madrid Home Jersey',339,this)">
-    Add to Cart
-  </button>
-</div>
-
-<!-- SIZE GUIDE -->
-<div id="sizeGuide" class="modal">
-  <div class="modal-box">
-    <span class="close" onclick="closeSizeGuide()">✕</span>
-    <h3>Size Guide (Chest in inches)</h3>
-    <table>
-      <tr><th>Size</th><th>Chest</th></tr>
-      <tr><td>S</td><td>36–38</td></tr>
-      <tr><td>M</td><td>38–40</td></tr>
-      <tr><td>L</td><td>40–42</td></tr>
-      <tr><td>XL</td><td>42–44</td></tr>
-      <tr><td>XXL</td><td>44–46</td></tr>
-    </table>
-  </div>
-</div>
-
-<!-- CART -->
-<div id="cartModal" class="modal">
-  <div class="modal-box">
-    <h3>Your Cart</h3>
-    <div id="cartItems">No items yet</div>
-
-    <button class="btn" onclick="checkoutWhatsApp()">
-      Checkout on WhatsApp
+    <button class="add-btn" onclick="addToCart('Real Madrid Home Jersey', 339, this)">
+      Add to Cart
     </button>
+  </div>
 
-    <button class="close-btn" onclick="closeCart()">Close</button>
+</section>
+
+<!-- CART MODAL -->
+<div id="cartModal" class="cart-modal">
+  <div class="cart-box">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <a id="waCheckout" target="_blank" class="wa-btn">Checkout on WhatsApp</a>
+    <button class="close-cart" onclick="closeCart()">Close</button>
   </div>
 </div>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer>
   <h2>JERSEY DRIP</h2>
-  <p>Premium Football Jerseys</p>
   <p>Instagram: @_jerseydrip</p>
   <p>WhatsApp: +91 70067 44346</p>
   <p>© 2026 Jersey Drip</p>
