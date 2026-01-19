@@ -202,3 +202,66 @@ footer {
   padding: 20px;
   border-radius: 16px;
 }
+/* MENU BUTTON */
+.menu-btn {
+  position: absolute;
+  left: 20px;
+  top: 22px;
+  font-size: 26px;
+  cursor: pointer;
+  color: gold;
+}
+
+/* SIDE MENU */
+#side-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  z-index: 99999;
+}
+
+.menu-content {
+  width: 260px;
+  height: 100%;
+  background: #fff;
+  padding: 20px;
+  color: #000;
+  animation: slideIn 0.25s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.close-menu {
+  font-size: 22px;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.menu-content a {
+  display: block;
+  padding: 12px 0;
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* SHOP SUBMENU */
+.menu-section {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.submenu {
+  margin-left: 10px;
+  margin-top: 6px;
+}
+
+.submenu a {
+  font-weight: normal;
+  font-size: 14px;
+}
